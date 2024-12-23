@@ -9,8 +9,10 @@ function Home() {
   };
   return (
     <>
-      <h1>Home Page</h1>
-      <button onClick={handleLogOut}>Log Out</button>
+    <div className="flex justify-between ">
+      <h1 className="font-roboto text-4xl">Home Page</h1>
+      <button onClick={handleLogOut} className="bg-red text-white text-col px-6 py-2 rounded-xl mr-2 mt-2 font-semibold">Log Out</button>
+    </div>
     </>
   );
 }

@@ -1,18 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: "http://localhost:8000",
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = sessionStorage.getItem('jwtToken'); 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    
+    const token = response.data.token;
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; // Attach token to headers
+      sessionStorage.setItem("jwtToken", token); // Save the token in sessionStorage
     }
-    return config;
+    return response; // Pass the response to the next handler
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error) // Handle errors
 );
 
 export default axiosInstance;

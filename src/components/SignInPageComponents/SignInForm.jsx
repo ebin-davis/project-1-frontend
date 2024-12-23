@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-
+import axiosInstance from "../../axios/axios";
 function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ function SignInForm() {
     try {
       e.preventDefault();
       console.log("Data being sent:", { email, password });
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "http://localhost:8000/user/login",
         {
           email,
@@ -24,8 +24,8 @@ function SignInForm() {
           headers: { "Content-Type": "application/json" }, // Ensure correct headers
         }
       );
-      const token =response.data.token;
-      console.log(token)
+      const token = response.data.token;
+      
       if (response) {
         alert("Login successfull");
         navigate("/home");
